@@ -111,9 +111,22 @@ Or set the binary path inline:
   --target-config .koncur/config/target-kantra.yaml
 ```
 
-### Using Custom Provider Images with Kantra
+### Using Custom Provider Images with Koncur
 
-When kantra runs in container mode (`--run-local=false`, which koncur uses by default), it pulls container images for each language provider. You can override these images directly in the kantra target config:
+By default, koncur passes `--run-local=false` (legacy behavior: container mode for all providers, including Java). You can override container images in the target config; koncur sets the env vars before invoking `kantra`.
+
+To **force local (containerless) mode** when your host is set up for it—`--run-local=true`—set `forceLocal: true` under `kantra:`.
+
+```yaml
+type: kantra
+kantra:
+  binaryPath: /usr/local/bin/kantra
+  forceLocal: true
+```
+
+### Image overrides (container mode)
+
+With the default `forceLocal` omitted, you can pin images:
 
 ```yaml
 type: kantra

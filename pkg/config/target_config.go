@@ -33,7 +33,12 @@ type KantraConfig struct {
 	BinaryPath    string `yaml:"binaryPath,omitempty"`
 	MavenSettings string `yaml:"mavenSettings,omitempty"`
 
-	// Container image overrides for kantra's container mode (--run-local=false)
+	// ForceLocal, when true, appends --run-local=true so analysis uses local
+	// (containerless) mode where supported. Omit or false to keep legacy
+	// behavior: koncur always passes --run-local=false.
+	ForceLocal bool `yaml:"forceLocal,omitempty"`
+
+	// Container image overrides. Used when kantra runs providers in containers.
 	// These correspond to kantra's environment variables for provider images.
 	RunnerImage          string `yaml:"runnerImage,omitempty"`
 	JavaProviderImage    string `yaml:"javaProviderImage,omitempty"`
