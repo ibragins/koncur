@@ -33,9 +33,10 @@ type KantraConfig struct {
 	BinaryPath    string `yaml:"binaryPath,omitempty"`
 	MavenSettings string `yaml:"mavenSettings,omitempty"`
 
-	// ForceLocal, when true, appends --run-local=true so analysis uses local
-	// (containerless) mode where supported. Omit or false to keep legacy
-	// behavior: koncur always passes --run-local=false.
+	// ForceLocal controls how analysis is executed.
+	// If not set or true, appends --run-local=true: Java analysis runs locally (containerless),
+	// while other analyses run in containers (the argument is ignored for non-Java analysis).
+	// If set to false, appends --run-local=false: all analyses run in containers.
 	ForceLocal bool `yaml:"forceLocal,omitempty"`
 
 	// Container image overrides. Used when kantra runs providers in containers.
