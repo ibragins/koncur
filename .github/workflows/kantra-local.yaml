@@ -62,14 +62,16 @@ jobs:
           podman machine init --rootful --memory 10240 --cpus 3
           podman machine start 
           CID=$(podman create quay.io/konveyor/kantra:latest)
-          podman cp "${CID}:/usr/local/bin/." ./
-          podman cp "${CID}:/jdtls/" ./
-          podman cp "${CID}:/usr/local/static-report/" ./
-          podman cp "${CID}:/opt/rulesets/" ./
-          podman cp "${CID}:/usr/bin/fernflower.jar" ./
-          podman cp "${CID}:/usr/local/etc/." ./
+          HOME_DIR="$HOME/.kantra/"
+          mkdir -p $HOME_DIR
+          podman cp "${CID}:/usr/local/bin/." $HOME_DIR
+          podman cp "${CID}:/jdtls/" $HOME_DIR
+          podman cp "${CID}:/usr/local/static-report/" $HOME_DIR
+          podman cp "${CID}:/opt/rulesets/" $HOME_DIR
+          podman cp "${CID}:/usr/bin/fernflower.jar" $HOME_DIR
+          podman cp "${CID}:/usr/local/etc/." $HOME_DIR
           podman rm "${CID}"
-          cp windows-kantra $HOME/.local/bin/kantra.exe
+          cp $HOME_DIR/windows-kantra $HOME/.local/bin/kantra.exe
           ls -la $HOME/.local/bin/kantra.exe
           $HOME/.local/bin/kantra version
 

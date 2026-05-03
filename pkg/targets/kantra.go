@@ -19,7 +19,7 @@ type KantraTarget struct {
 	binaryPath    string
 	mavenSettings string
 	imageEnv      []string // Environment variable overrides for provider images
-	forceLocal    bool     // if true, pass --run-local=true; else legacy --run-local=false
+	forceLocal    bool     // if true, pass --run-local=true; if false, pass --run-local=false; if not set, use the default behavior of the target config
 }
 
 // NewKantraTarget creates a new Kantra target
